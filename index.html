@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexoTech OS — Painel de Gestão</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4Z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 7l8 4 8-4M12 11v10" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">NexoTech</span>
+        <span class="brand-sub">OS · v2.4</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-group-label">Visão geral</div>
+      <button class="nav-item active" data-page="dashboard">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="9" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="14" y="3" width="7" height="5" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="14" y="12" width="7" height="9" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="3" y="16" width="7" height="5" rx="1.5" stroke="currentColor" stroke-width="1.8"/></svg>
+        <span>Dashboard</span>
+      </button>
+
+      <div class="nav-group-label">Operação</div>
+      <button class="nav-item" data-page="produtos">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M21 8 12 3 3 8l9 5 9-5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M3 8v8l9 5 9-5V8M12 13v8" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <span>Produtos</span>
+      </button>
+      <button class="nav-item" data-page="estoque">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="5" rx="1.3" stroke="currentColor" stroke-width="1.8"/><path d="M5 9v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9M10 13h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span>Estoque</span>
+      </button>
+      <button class="nav-item" data-page="clientes">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.3" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 20c.6-3.6 3-5.6 5.5-5.6s4.9 2 5.5 5.6M16 8.2a3 3 0 1 1 3.2 3M18 14.3c2.1.5 3.6 2.2 4 5.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span>Clientes</span>
+      </button>
+      <button class="nav-item" data-page="ordens">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M8 3h8a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8"/><path d="M9 3v3h6V3M9 11h6M9 15h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span>Ordens de Serviço</span>
+        <span class="nav-badge" id="nav-os-count">7</span>
+      </button>
+      <button class="nav-item" data-page="vendas">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="20" r="1.4" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="20" r="1.4" stroke="currentColor" stroke-width="1.8"/><path d="M2.5 3h2.4l2.1 11.4a2 2 0 0 0 2 1.6h8.4a2 2 0 0 0 2-1.6L21 7H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Vendas / PDV</span>
+      </button>
+
+      <div class="nav-group-label">Gestão</div>
+      <button class="nav-item" data-page="relatorios">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 20V10M11 20V4M18 20v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span>Relatórios</span>
+      </button>
+      <button class="nav-item" data-page="configuracoes">
+        <svg class="icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M19.4 13a7.6 7.6 0 0 0 .1-2l2-1.6-2-3.4-2.4 1a7.7 7.7 0 0 0-1.7-1L15 3h-6l-.4 2.4a7.7 7.7 0 0 0-1.7 1l-2.4-1-2 3.4L4.5 11a7.6 7.6 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7.7 7.7 0 0 0 1.7 1L9 21h6l.4-2.4a7.7 7.7 0 0 0 1.7-1l2.4 1 2-3.4-2.1-1.2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <span>Configurações</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-chip">
+        <div class="avatar">RM</div>
+        <div class="user-meta">
+          <span class="user-name">Rafael Martins</span>
+          <span class="user-role">Técnico · Admin</span>
+        </div>
+        <svg class="icon-sm" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-title">
+        <h1 id="page-title">Dashboard</h1>
+        <span class="topbar-breadcrumb" id="page-breadcrumb">Visão geral da loja</span>
+      </div>
+
+      <div class="topbar-search">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <input type="text" id="global-search" placeholder="Buscar produtos, clientes, ordens... (Ctrl+K)">
+        <kbd>⌘K</kbd>
+      </div>
+
+      <div class="topbar-actions">
+        <button class="icon-btn" id="btn-notify" title="Notificações">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 9a6 6 0 1 1 12 0c0 4.2 1.2 5.6 1.8 6.4.3.4 0 1-.5 1H4.7c-.5 0-.8-.6-.5-1C4.8 14.6 6 13.2 6 9Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9.5 19a2.5 2.5 0 0 0 5 0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <span class="dot-badge"></span>
+        </button>
+        <button class="btn btn-primary" id="btn-new-order-top">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Nova Ordem
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <main class="content" id="content">
+
+      <!-- ===================== DASHBOARD ===================== -->
+      <section class="page active" id="page-dashboard">
+
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-icon blue">
+              <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="5" rx="1.3" stroke="currentColor" stroke-width="1.8"/><path d="M5 9v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9" stroke="currentColor" stroke-width="1.8"/></svg>
+            </div>
+            <div class="kpi-info">
+              <span class="kpi-label">Total em estoque</span>
+              <span class="kpi-value" id="kpi-estoque">R$ 187.420</span>
+              <span class="kpi-trend up">+4,2% este mês</span>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon violet">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M21 8 12 3 3 8l9 5 9-5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M3 8v8l9 5 9-5V8" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="kpi-info">
+              <span class="kpi-label">Produtos cadastrados</span>
+              <span class="kpi-value" id="kpi-produtos">342</span>
+              <span class="kpi-trend up">+12 novos</span>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon amber">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3.3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </div>
+            <div class="kpi-info">
+              <span class="kpi-label">Ordens abertas</span>
+              <span class="kpi-value" id="kpi-abertas">18</span>
+              <span class="kpi-trend down">-3 vs. ontem</span>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon green">
+              <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="kpi-info">
+              <span class="kpi-label">Ordens finalizadas</span>
+              <span class="kpi-value" id="kpi-finalizadas">231</span>
+              <span class="kpi-trend up">+9 esta semana</span>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon rose">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.3" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 20c.6-3.6 3-5.6 5.5-5.6s4.9 2 5.5 5.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </div>
+            <div class="kpi-info">
+              <span class="kpi-label">Clientes cadastrados</span>
+              <span class="kpi-value" id="kpi-clientes">514</span>
+              <span class="kpi-trend up">+21 este mês</span>
+            </div>
+          </div>
+          <div class="kpi-card highlight">
+            <div class="kpi-icon dark">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 2v20M17 6.5c0-1.9-2-3.5-5-3.5s-5 1.4-5 3.3c0 4.2 10 1.9 10 6.2 0 2-2.2 3.5-5 3.5s-5-1.5-5-3.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </div>
+            <div class="kpi-info">
+              <span class="kpi-label">Faturamento do dia</span>
+              <span class="kpi-value" id="kpi-faturamento">R$ 6.380</span>
+              <span class="kpi-trend up">+18% vs. média</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-grid">
+          <div class="panel span-2">
+            <div class="panel-header">
+              <h3>Vendas dos últimos 14 dias</h3>
+              <div class="segmented">
+                <button class="seg-btn active">14d</button>
+                <button class="seg-btn">30d</button>
+                <button class="seg-btn">90d</button>
+              </div>
+            </div>
+            <canvas id="chart-vendas" height="200"></canvas>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header"><h3>Ordens por status</h3></div>
+            <canvas id="chart-ordens" height="200"></canvas>
+            <div class="legend" id="legend-ordens"></div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header"><h3>Estoque por categoria</h3></div>
+            <canvas id="chart-estoque" height="180"></canvas>
+            <div class="legend" id="legend-estoque"></div>
+          </div>
+
+          <div class="panel span-2">
+            <div class="panel-header">
+              <h3>Alertas de estoque</h3>
+              <button class="link-btn" data-page="estoque">Ver estoque completo →</button>
+            </div>
+            <div class="alert-list" id="alert-list"></div>
+          </div>
+
+          <div class="panel span-3">
+            <div class="panel-header">
+              <h3>Últimas ordens de serviço</h3>
+              <button class="link-btn" data-page="ordens">Ver todas →</button>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table" id="table-ultimas-ordens">
+                <thead>
+                  <tr><th>Número</th><th>Equipamento</th><th>Cliente</th><th>Prioridade</th><th>Status</th><th>Data</th></tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== PRODUTOS ===================== -->
+      <section class="page" id="page-produtos">
+        <div class="kpi-grid kpi-grid-4">
+          <div class="kpi-card small"><span class="kpi-label">Quantidade total</span><span class="kpi-value" id="prod-kpi-qtd">1.284</span></div>
+          <div class="kpi-card small"><span class="kpi-label">Valor em estoque</span><span class="kpi-value" id="prod-kpi-valor">R$ 187.420</span></div>
+          <div class="kpi-card small"><span class="kpi-label">Produtos críticos</span><span class="kpi-value danger-text" id="prod-kpi-criticos">6</span></div>
+          <div class="kpi-card small"><span class="kpi-label">Categorias</span><span class="kpi-value" id="prod-kpi-categorias">8</span></div>
+        </div>
+
+        <div class="toolbar">
+          <div class="toolbar-search">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <input type="text" id="produtos-search" placeholder="Pesquisar produtos por nome, SKU ou categoria...">
+          </div>
+          <select class="select-filter" id="produtos-filtro-categoria">
+            <option value="">Todas categorias</option>
+          </select>
+          <select class="select-filter" id="produtos-filtro-status">
+            <option value="">Todos status</option>
+            <option value="ok">Em estoque</option>
+            <option value="baixo">Estoque baixo</option>
+            <option value="zerado">Sem estoque</option>
+          </select>
+          <button class="btn btn-primary" id="btn-novo-produto">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Novo Produto
+          </button>
+        </div>
+
+        <div class="panel no-pad">
+          <div class="table-wrap">
+            <table class="data-table" id="table-produtos">
+              <thead>
+                <tr>
+                  <th>Produto</th><th>Categoria</th><th>SKU</th><th>Qtd.</th><th>Preço</th><th>Fornecedor</th><th>Status</th><th></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== ESTOQUE ===================== -->
+      <section class="page" id="page-estoque">
+        <div class="toolbar">
+          <div class="toolbar-search">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <input type="text" id="estoque-search" placeholder="Pesquisar no estoque...">
+          </div>
+          <select class="select-filter" id="estoque-filtro-categoria">
+            <option value="">Todas categorias</option>
+          </select>
+          <div class="view-toggle">
+            <button class="vt-btn active" data-view="grid"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.8"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.8"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.8"/><rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.8"/></svg></button>
+            <button class="vt-btn" data-view="list"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+          </div>
+        </div>
+        <div class="estoque-grid" id="estoque-grid"></div>
+      </section>
+
+      <!-- ===================== CLIENTES ===================== -->
+      <section class="page" id="page-clientes">
+        <div class="toolbar">
+          <div class="toolbar-search">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <input type="text" id="clientes-search" placeholder="Pesquisar clientes por nome, telefone ou CPF...">
+          </div>
+          <button class="btn btn-primary" id="btn-novo-cliente">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Novo Cliente
+          </button>
+        </div>
+        <div class="panel no-pad">
+          <div class="table-wrap">
+            <table class="data-table" id="table-clientes">
+              <thead>
+                <tr><th>Cliente</th><th>Telefone</th><th>CPF</th><th>Cidade</th><th>Ordens</th><th>Cliente desde</th><th></th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== ORDENS DE SERVIÇO ===================== -->
+      <section class="page" id="page-ordens">
+        <div class="toolbar">
+          <div class="toolbar-search">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <input type="text" id="ordens-search" placeholder="Pesquisar por número, cliente ou equipamento...">
+          </div>
+          <div class="status-tabs" id="ordens-status-tabs">
+            <button class="stab active" data-status="">Todas</button>
+            <button class="stab" data-status="Em análise">Em análise</button>
+            <button class="stab" data-status="Aguardando aprovação">Aguard. aprovação</button>
+            <button class="stab" data-status="Aguardando peça">Aguard. peça</button>
+            <button class="stab" data-status="Em reparo">Em reparo</button>
+            <button class="stab" data-status="Pronto">Pronto</button>
+            <button class="stab" data-status="Entregue">Entregue</button>
+          </div>
+          <button class="btn btn-primary" id="btn-nova-ordem">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Nova Ordem
+          </button>
+        </div>
+        <div class="ordens-grid" id="ordens-grid"></div>
+      </section>
+
+      <!-- ===================== VENDAS / PDV ===================== -->
+      <section class="page" id="page-vendas">
+        <div class="pdv-layout">
+          <div class="pdv-catalog">
+            <div class="toolbar-search pdv-search">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              <input type="text" id="pdv-search" placeholder="Pesquisar produto por nome ou SKU...">
+            </div>
+            <div class="pdv-grid" id="pdv-grid"></div>
+          </div>
+
+          <aside class="pdv-cart">
+            <div class="pdv-cart-header">
+              <h3>Carrinho</h3>
+              <span class="pill" id="pdv-cart-count">0 itens</span>
+            </div>
+            <div class="pdv-client-select">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.3" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 19c.6-3.3 3-5.1 5.5-5.1s4.9 1.8 5.5 5.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              <select id="pdv-cliente">
+                <option value="">Cliente avulso</option>
+              </select>
+            </div>
+            <div class="pdv-cart-items" id="pdv-cart-items">
+              <div class="pdv-empty">Nenhum item adicionado ainda.<br>Selecione produtos ao lado.</div>
+            </div>
+            <div class="pdv-summary">
+              <div class="sum-row"><span>Subtotal</span><span id="pdv-subtotal">R$ 0,00</span></div>
+              <div class="sum-row">
+                <span>Desconto</span>
+                <div class="discount-input">
+                  <input type="number" id="pdv-desconto" value="0" min="0" max="100">
+                  <span>%</span>
+                </div>
+              </div>
+              <div class="sum-row total"><span>Total</span><span id="pdv-total">R$ 0,00</span></div>
+            </div>
+            <div class="pdv-payment">
+              <label>Forma de pagamento</label>
+              <div class="pay-options" id="pdv-pay-options">
+                <button class="pay-opt active" data-pay="Pix">Pix</button>
+                <button class="pay-opt" data-pay="Crédito">Crédito</button>
+                <button class="pay-opt" data-pay="Débito">Débito</button>
+                <button class="pay-opt" data-pay="Dinheiro">Dinheiro</button>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-block btn-lg" id="btn-finalizar-venda">Finalizar Venda</button>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ===================== RELATÓRIOS ===================== -->
+      <section class="page" id="page-relatorios">
+        <div class="dash-grid">
+          <div class="panel span-2">
+            <div class="panel-header"><h3>Receita mensal</h3><span class="muted-note">Últimos 6 meses</span></div>
+            <canvas id="chart-receita" height="220"></canvas>
+          </div>
+          <div class="panel">
+            <div class="panel-header"><h3>Ordens por status</h3></div>
+            <canvas id="chart-rel-status" height="220"></canvas>
+            <div class="legend" id="legend-rel-status"></div>
+          </div>
+          <div class="panel span-2">
+            <div class="panel-header"><h3>Produtos mais vendidos</h3></div>
+            <div class="table-wrap">
+              <table class="data-table" id="table-mais-vendidos">
+                <thead><tr><th>Produto</th><th>Categoria</th><th>Unidades</th><th>Receita</th><th></th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-header"><h3>Ordens por técnico</h3></div>
+            <canvas id="chart-tecnicos" height="220"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== CONFIGURAÇÕES ===================== -->
+      <section class="page" id="page-configuracoes">
+        <div class="settings-grid">
+          <div class="settings-card">
+            <div class="settings-icon blue"><svg viewBox="0 0 24 24" fill="none"><path d="M3 21V7l9-4 9 4v14" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 21v-6h6v6M9 11h.01M15 11h.01M9 15h.01M15 15h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            <h4>Empresa</h4>
+            <p>Dados cadastrais, CNPJ, logotipo e informações fiscais da loja.</p>
+            <button class="btn btn-ghost">Editar dados</button>
+          </div>
+          <div class="settings-card">
+            <div class="settings-icon violet"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="9" width="16" height="7" rx="1.3" stroke="currentColor" stroke-width="1.8"/><path d="M7 9V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v3M8 20h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            <h4>Impressão</h4>
+            <p>Configurar impressora térmica padrão, layout de recibos e vias.</p>
+            <button class="btn btn-ghost">Configurar</button>
+          </div>
+          <div class="settings-card">
+            <div class="settings-icon amber"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="12" rx="1.5" stroke="currentColor" stroke-width="1.8"/><path d="M3 10h18M7 14h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            <h4>Etiqueta</h4>
+            <p>Modelo de etiqueta de ordem de serviço, QR Code e código de barras.</p>
+            <button class="btn btn-ghost">Personalizar</button>
+          </div>
+          <div class="settings-card">
+            <div class="settings-icon green"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12M7 10l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            <h4>Backup</h4>
+            <p>Backup automático diário na nuvem. Último backup: hoje às 04:00.</p>
+            <button class="btn btn-ghost">Fazer backup agora</button>
+          </div>
+          <div class="settings-card">
+            <div class="settings-icon rose"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 20c.6-3.4 3-5.4 5.5-5.4s4.9 2 5.5 5.4M16 8a3 3 0 1 1 3.2 3M18 14.3c2 .5 3.5 2.1 3.9 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            <h4>Usuários</h4>
+            <p>Gerencie técnicos, vendedores e permissões de acesso ao sistema.</p>
+            <button class="btn btn-ghost">Gerenciar usuários</button>
+          </div>
+          <div class="settings-card">
+            <div class="settings-icon dark"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            <h4>Tema</h4>
+            <p>Aparência do sistema — claro, escuro ou automático conforme o SO.</p>
+            <div class="theme-switch">
+              <button class="th-opt active" data-theme="light">Claro</button>
+              <button class="th-opt" data-theme="dark">Escuro</button>
+              <button class="th-opt" data-theme="auto">Auto</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ============ MODAL: NOVA ORDEM DE SERVIÇO ============ -->
+<div class="modal-overlay" id="modal-ordem">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <div>
+        <h2>Nova Ordem de Serviço</h2>
+        <span class="modal-subtitle" id="os-preview-numero">OS-20260720-001</span>
+      </div>
+      <button class="icon-btn" data-close-modal><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <form id="form-ordem">
+        <div class="form-section">
+          <div class="form-section-title">Cliente</div>
+          <div class="form-grid">
+            <div class="field span-2">
+              <label>Cliente</label>
+              <input list="lista-clientes-os" id="os-cliente" placeholder="Selecionar ou digitar nome do cliente" required>
+              <datalist id="lista-clientes-os"></datalist>
+            </div>
+            <div class="field">
+              <label>Telefone</label>
+              <input type="text" id="os-telefone" placeholder="(00) 00000-0000">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-title">Equipamento</div>
+          <div class="form-grid">
+            <div class="field">
+              <label>Tipo de equipamento</label>
+              <select id="os-tipo">
+                <option>Notebook</option>
+                <option>Computador Desktop</option>
+                <option>Videogame</option>
+                <option>Monitor</option>
+                <option>Impressora</option>
+                <option>Outro</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Marca</label>
+              <input type="text" id="os-marca" placeholder="Ex: Dell, Sony, Lenovo...">
+            </div>
+            <div class="field">
+              <label>Modelo</label>
+              <input type="text" id="os-modelo" placeholder="Ex: Inspiron 15, PS5 Slim...">
+            </div>
+            <div class="field">
+              <label>Número de série</label>
+              <input type="text" id="os-serie" placeholder="Opcional">
+            </div>
+            <div class="field">
+              <label>Senha do equipamento</label>
+              <input type="text" id="os-senha" placeholder="Opcional — uso interno">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-title">Acessórios recebidos</div>
+          <div class="checkbox-row">
+            <label class="checkbox"><input type="checkbox" value="Controle"><span>Controle</span></label>
+            <label class="checkbox"><input type="checkbox" value="Fonte"><span>Fonte</span></label>
+            <label class="checkbox"><input type="checkbox" value="Cabo HDMI"><span>HDMI</span></label>
+            <label class="checkbox"><input type="checkbox" value="Caixa"><span>Caixa</span></label>
+            <label class="checkbox"><input type="checkbox" value="Manual"><span>Manual</span></label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-title">Diagnóstico</div>
+          <div class="form-grid">
+            <div class="field span-2">
+              <label>Defeito informado pelo cliente</label>
+              <textarea id="os-defeito" rows="2" placeholder="Descreva o problema relatado..." required></textarea>
+            </div>
+            <div class="field span-2">
+              <label>Observações internas</label>
+              <textarea id="os-obs" rows="2" placeholder="Observações da equipe técnica..."></textarea>
+            </div>
+            <div class="field">
+              <label>Prioridade</label>
+              <select id="os-prioridade">
+                <option>Baixa</option>
+                <option selected>Normal</option>
+                <option>Alta</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Status</label>
+              <select id="os-status">
+                <option>Em análise</option>
+                <option>Aguardando aprovação</option>
+                <option>Aguardando peça</option>
+                <option>Em reparo</option>
+                <option>Pronto</option>
+                <option>Entregue</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" data-close-modal>Cancelar</button>
+      <button class="btn btn-primary" id="btn-salvar-ordem">Salvar Ordem</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: CARD DA ORDEM ============ -->
+<div class="modal-overlay" id="modal-card-ordem">
+  <div class="modal modal-md">
+    <div class="modal-header">
+      <h2>Ordem criada com sucesso</h2>
+      <button class="icon-btn" data-close-modal><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="os-card-preview" id="os-card-preview"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" data-close-modal>Fechar</button>
+      <button class="btn btn-primary" id="btn-ver-etiqueta">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="9" width="16" height="7" rx="1.3" stroke="currentColor" stroke-width="1.8"/><path d="M7 9V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v3M8 20h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Imprimir Etiqueta
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: ETIQUETA ============ -->
+<div class="modal-overlay" id="modal-etiqueta">
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <h2>Pré-visualização de etiqueta</h2>
+      <button class="icon-btn" data-close-modal><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="etiqueta-frame">
+        <div class="etiqueta" id="etiqueta-preview"></div>
+      </div>
+      <p class="etiqueta-hint">Etiqueta 60×40mm · pronta para impressora térmica</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" data-close-modal>Fechar</button>
+      <button class="btn btn-primary" id="btn-imprimir">Imprimir</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: DETALHE DA ORDEM ============ -->
+<div class="modal-overlay" id="modal-detalhe-ordem">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <div>
+        <h2 id="det-numero">OS-20260720-001</h2>
+        <span class="modal-subtitle" id="det-sub">Aberta em 20/07/2026</span>
+      </div>
+      <button class="icon-btn" data-close-modal><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="detalhe-grid" id="detalhe-grid"></div>
+      <div class="detalhe-timeline">
+        <div class="form-section-title">Linha do tempo</div>
+        <div class="timeline" id="detalhe-timeline"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <label class="field" style="flex:1">
+        <span style="font-size:12px;color:var(--text-muted);font-weight:600;">Atualizar status</span>
+        <select id="det-novo-status">
+          <option>Em análise</option>
+          <option>Aguardando aprovação</option>
+          <option>Aguardando peça</option>
+          <option>Em reparo</option>
+          <option>Pronto</option>
+          <option>Entregue</option>
+        </select>
+      </label>
+      <button class="btn btn-ghost" id="btn-imprimir-etiqueta-detalhe">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="9" width="16" height="7" rx="1.3" stroke="currentColor" stroke-width="1.8"/><path d="M7 9V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v3M8 20h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Imprimir Etiqueta
+      </button>
+      <button class="btn btn-primary" id="btn-atualizar-status">Atualizar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: NOVO PRODUTO ============ -->
+<div class="modal-overlay" id="modal-produto">
+  <div class="modal modal-md">
+    <div class="modal-header">
+      <h2>Novo Produto</h2>
+      <button class="icon-btn" data-close-modal><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <form id="form-produto">
+        <div class="form-grid">
+          <div class="field span-2">
+            <label>Nome do produto</label>
+            <input type="text" id="prod-nome" placeholder="Ex: SSD Kingston NV2 500GB" required>
+          </div>
+          <div class="field">
+            <label>Categoria</label>
+            <select id="prod-categoria">
+              <option>Armazenamento</option>
+              <option>Memória RAM</option>
+              <option>Placas de Vídeo</option>
+              <option>Processadores</option>
+              <option>Periféricos</option>
+              <option>Cabos e Conectores</option>
+              <option>Notebooks</option>
+              <option>Acessórios Gamer</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>SKU</label>
+            <input type="text" id="prod-sku" placeholder="Gerado automaticamente">
+          </div>
+          <div class="field">
+            <label>Quantidade inicial</label>
+            <input type="number" id="prod-qtd" value="0" min="0" required>
+          </div>
+          <div class="field">
+            <label>Preço de venda (R$)</label>
+            <input type="number" id="prod-preco" value="0" min="0" step="0.01" required>
+          </div>
+          <div class="field span-2">
+            <label>Fornecedor</label>
+            <input type="text" id="prod-fornecedor" placeholder="Ex: Distribuidora Alpha">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" data-close-modal>Cancelar</button>
+      <button class="btn btn-primary" id="btn-salvar-produto">Salvar Produto</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: NOVO CLIENTE ============ -->
+<div class="modal-overlay" id="modal-cliente">
+  <div class="modal modal-md">
+    <div class="modal-header">
+      <h2>Novo Cliente</h2>
+      <button class="icon-btn" data-close-modal><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <form id="form-cliente">
+        <div class="form-grid">
+          <div class="field span-2">
+            <label>Nome completo</label>
+            <input type="text" id="cli-nome" placeholder="Nome do cliente" required>
+          </div>
+          <div class="field">
+            <label>Telefone</label>
+            <input type="text" id="cli-telefone" placeholder="(00) 00000-0000" required>
+          </div>
+          <div class="field">
+            <label>CPF</label>
+            <input type="text" id="cli-cpf" placeholder="000.000.000-00">
+          </div>
+          <div class="field span-2">
+            <label>Email</label>
+            <input type="email" id="cli-email" placeholder="cliente@email.com">
+          </div>
+          <div class="field span-2">
+            <label>Endereço</label>
+            <input type="text" id="cli-endereco" placeholder="Rua, número, bairro">
+          </div>
+          <div class="field">
+            <label>Cidade</label>
+            <input type="text" id="cli-cidade" placeholder="Cidade / UF">
+          </div>
+          <div class="field span-2">
+            <label>Observações</label>
+            <textarea id="cli-obs" rows="2" placeholder="Observações adicionais..."></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" data-close-modal>Cancelar</button>
+      <button class="btn btn-primary" id="btn-salvar-cliente">Salvar Cliente</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: MOVIMENTAÇÃO DE ESTOQUE ============ -->
+<div class="modal-overlay" id="modal-movimentacao">
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <h2>Movimentação de Estoque</h2>
+      <button class="icon-btn" data-close-modal><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="mov-produto-info" id="mov-produto-info"></div>
+      <div class="form-grid">
+        <div class="field">
+          <label>Tipo</label>
+          <select id="mov-tipo">
+            <option value="entrada">Entrada</option>
+            <option value="saida">Saída</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Quantidade</label>
+          <input type="number" id="mov-qtd" value="1" min="1">
+        </div>
+        <div class="field span-2">
+          <label>Motivo</label>
+          <input type="text" id="mov-motivo" placeholder="Ex: Reposição de fornecedor">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" data-close-modal>Cancelar</button>
+      <button class="btn btn-primary" id="btn-salvar-movimentacao">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toast-container"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
